@@ -74,7 +74,7 @@ def main():
         print("خطا: BOT_TOKEN پیدا نشد. لطفاً متغیر محیطی را در Render تنظیم کنید.")
         return
 
-    updater = Updater(TOKEN, use_context=True)
+   updater = Updater(TOKEN)
     dp = updater.dispatcher
 
     # تنظیم Handlerها برای دستورات /start و /new
