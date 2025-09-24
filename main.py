@@ -2,7 +2,7 @@ import telegram
 from telegram.ext import Updater, CommandHandler
 import datetime
 import csv
-import os # <<<< برای خواندن متغیر امن اضافه شد
+import os
 
 # توکن به صورت امن از متغیر محیطی (Environment Variable) خوانده می‌شود
 TOKEN = os.environ.get("BOT_TOKEN") 
@@ -11,7 +11,7 @@ TOKEN = os.environ.get("BOT_TOKEN")
 DATA_FILE = "clients.csv"
 
 def generate_client_code():
-    # ساخت کد مشتری بر اساس تاریخ و زمان دقیق (سال، ماه، روز، ساعت، دقیقه، ثانیه)
+    # ساخت کد مشتری بر اساس تاریخ و زمان دقیق
     now = datetime.datetime.now()
     return now.strftime("%Y%m%d%H%M%S")
 
@@ -45,7 +45,6 @@ def new_client_entry(update, context):
         new_row = [client_code, full_name, phone_number, need_type, datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")]
         
         # ذخیره در فایل CSV
-        # 'a' برای اضافه کردن به انتهای فایل (append) است
         with open(DATA_FILE, 'a', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
             
@@ -74,7 +73,7 @@ def main():
         print("خطا: BOT_TOKEN پیدا نشد. لطفاً متغیر محیطی را در Render تنظیم کنید.")
         return
 
-   updater = Updater(TOKEN)
+    updater = Updater(TOKEN) # <<<< اصلاح خطای use_context
     dp = updater.dispatcher
 
     # تنظیم Handlerها برای دستورات /start و /new
